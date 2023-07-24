@@ -2,11 +2,13 @@ package com.example.crudpractice.rest;
 
 import com.example.crudpractice.entity.Employee;
 import com.example.crudpractice.services.EmployeeServiceImpl;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class EmployeeController {
 
@@ -14,6 +16,28 @@ public class EmployeeController {
 
     public EmployeeController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
+    }
+
+    //Listing employees for view (thymeleaf)
+    @GetMapping("/employee/list")
+    public String findAllList(Model model) {
+        model.addAttribute("employees", employeeService.findAll());
+        return "thymeMap";
+    }
+
+    //Adding new employee via thymeleaf so this method sends req to showformadd.html form page
+    @GetMapping("/employee/list/showFormAdd")
+    public String showFormAdd(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute("addEmployee", employee);
+
+        return "showformadd";
+    }
+    //in form page, get properties and create a new employee.
+    @PostMapping("/employee/save")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee){
+        employeeService.save(employee);
+        return "redirect:/api/employee/list";
     }
 
     @GetMapping("/employee")
@@ -31,9 +55,10 @@ public class EmployeeController {
     public Employee save(@RequestBody Employee employee) {
         return employeeService.save(employee);
     }
+
     @PutMapping("/employee/{employeeId}")
-    public Employee update(@RequestBody Employee employee,@PathVariable int employeeId){
-        Employee tempEmployee = employeeService.update(employee,employeeId);
+    public Employee update(@RequestBody Employee employee, @PathVariable int employeeId) {
+        Employee tempEmployee = employeeService.update(employee, employeeId);
         return tempEmployee;
     }
 
