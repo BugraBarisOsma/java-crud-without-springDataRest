@@ -33,10 +33,27 @@ public class EmployeeController {
 
         return "showformadd";
     }
+
     //in form page, get properties and create a new employee.
     @PostMapping("/employee/save")
-    public String saveEmployee(@ModelAttribute("employee") Employee employee){
+    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         employeeService.save(employee);
+        return "redirect:/api/employee/list";
+    }
+
+    @GetMapping("/employee/list/showFormUpdate")
+    public String showFormUpdate(@RequestParam("employeeId") int id, Model model) {
+        Employee employeeTemp = employeeService.find(id);
+        model.addAttribute("addEmployee", employeeTemp);
+
+        return "showformadd";
+    }
+    @GetMapping("/employee/list/showFormDelete")
+    public String showFormDelete(@RequestParam("employeeId") int id,Model model){
+        Employee employee = employeeService.find(id);
+        employeeService.delete(employee.getId());
+        model.addAttribute("addEmployee", employee);
+
         return "redirect:/api/employee/list";
     }
 
