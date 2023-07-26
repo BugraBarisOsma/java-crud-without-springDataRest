@@ -29,7 +29,9 @@ CREATE TABLE `employee` (
 -- Data for table `employee`
 --
 
+
 INSERT INTO `employee` VALUES 
+
 	(1,'Leslie','Andrews','example.com'),
 	(2,'Emma','Baumgarten','example.com'),
 	(3,'Avani','Gupta','example.com'),
