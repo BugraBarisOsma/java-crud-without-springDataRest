@@ -2,10 +2,14 @@ package com.example.crudpractice.rest;
 
 import com.example.crudpractice.entity.Employee;
 import com.example.crudpractice.services.EmployeeServiceImpl;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -40,7 +44,7 @@ public class EmployeeController {
         employeeService.save(employee);
         return "redirect:/api/employee/list";
     }
-
+    //update employee thymeleaf
     @GetMapping("/employee/list/showFormUpdate")
     public String showFormUpdate(@RequestParam("employeeId") int id, Model model) {
         Employee employeeTemp = employeeService.find(id);
@@ -48,6 +52,7 @@ public class EmployeeController {
 
         return "showformadd";
     }
+    //delete employee thymeleaf
     @GetMapping("/employee/list/showFormDelete")
     public String showFormDelete(@RequestParam("employeeId") int id,Model model){
         Employee employee = employeeService.find(id);
@@ -55,6 +60,14 @@ public class EmployeeController {
         model.addAttribute("addEmployee", employee);
 
         return "redirect:/api/employee/list";
+    }
+    //download employee list
+    @GetMapping("/employee/list/downloadList")
+    public String downloadList(Model model, HttpServletResponse response) throws IOException {
+       List<Employee> employeeList = employeeService.findAll();
+       model.addAttribute("employee", employeeList);
+       employeeService.downloadExcel(response,employeeList);
+        return "thymeMap";
     }
 
     @GetMapping("/employee")
