@@ -4,6 +4,8 @@
 This is a simple backend repository made with java spring boot 
 
 * Used Thymeleaf for view and still updating
+  
+* Added excel export (checkout service layer for detailed info)
 
 * For database example you can use this section : 
 
