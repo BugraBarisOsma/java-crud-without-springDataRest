@@ -7,6 +7,8 @@ This is a simple backend repository made with java spring boot
   
 * Added excel export (checkout service layer for detailed info)
 
+* Added AOP Logging support
+
 * For database example you can use this section : 
 
 CREATE DATABASE  IF NOT EXISTS `employee_directory`;
