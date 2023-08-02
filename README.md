@@ -7,6 +7,10 @@ This is a simple backend repository made with java spring boot
   
 * Added excel export (checkout service layer for detailed info)
 
+* Added Spring Security
+   - Username : user
+   - Password: will be generated when your run the code , it will appear in terminal 
+
 * Added AOP Logging support
 
 * For database example you can use this section : 
